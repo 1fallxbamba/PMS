@@ -1,0 +1,181 @@
+  <!-- NAVBAR -->
+
+  <app-navbar></app-navbar>
+
+  <!-- SIDEMENU -->
+
+  <app-sidemenu></app-sidemenu>
+
+
+  <div class="wrapper">
+
+    <div class="content-wrapper">
+
+          <!-- Content Header (Page header) -->
+    <section class="content-header" *ngIf="!userAdded">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Ajout d'utilisateur</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a routerLink="/home">Accueil</a></li>
+              <li class="breadcrumb-item active">Nouvel utilisateur</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <section class="content" *ngIf="!userAdded">
+
+      <div class="container-fluid">
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-default">
+              <div class="card-header">
+                <h3 class="card-title">Veuillez remplir les formulaires</h3>
+              </div>
+              <div class="card-body p-0">
+                <div class="bs-stepper">
+                  <div class="bs-stepper-header" role="tablist">
+                    <!-- your steps here -->
+                    <div class="step" data-target="#logins-part">
+                      <button type="button" class="step-trigger" role="tab" aria-controls="logins-part" id="logins-part-trigger">
+                        <span class="bs-stepper-circle">1</span>
+                        <span class="bs-stepper-label">Information générales</span>
+                      </button>
+                    </div>
+                    <div class="line"></div>
+                    <div class="step" data-target="#information-part">
+                      <button type="button" class="step-trigger" role="tab" aria-controls="information-part" id="information-part-trigger">
+                        <span class="bs-stepper-circle">2</span>
+                        <span class="bs-stepper-label">Informations de connexion</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="bs-stepper-content">
+                    <!-- your steps content here -->
+                    <form #newUser="ngForm">
+                      <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
+                        <div class="form-group">
+                          <label >Prénom</label>
+                          <input
+                          [(ngModel)]="userData.fName"
+                          name="fName"
+                          type="text"
+                          class="form-control"
+                          required >
+                        </div>
+                        <div class="form-group">
+                          <label >Nom</label>
+                          <input
+                          [(ngModel)]="userData.lName"
+                          name="lName"
+                          type="text"
+                          class="form-control"
+                          required>
+                        </div>
+
+                        <div class="form-group">
+                          <label >Email</label>
+                          <input
+                          [(ngModel)]="userData.email"
+                          name="email"
+                          type="email"
+                          class="form-control"
+                          required>
+                        </div>
+
+                        <div class="form-group">
+                          <label >Numéro de téléphone</label>
+                          <input
+                          [(ngModel)]="userData.tel"
+                          name="tel"
+                          type="tel"
+                          pattern="[0-9]{9}"
+                          placeholder="9 chiffres (Ex: 771234567)"
+                          class="form-control"
+                          required >
+                        </div>
+
+                        <div class="form-group" >
+                          <label >Profil</label>
+                          <select
+                          #p
+                          (change)="setUserProfile(p.value)"
+                          [(ngModel)]="userData.profile"
+                          [ngModelOptions]="{standalone: true}"
+                          name="clientSelect"
+                          class="form-control"
+                          required >
+                          <option disabled="true">Administrateur (désactivé par défaut)</option>
+                            <option value="Directeur"> Directeur </option>
+                            <option value="Chef de projet"> Chef de projet </option>
+                            <option value="Ingénieur"> Ingénieur </option>
+                            <option value="Technicien"> Technicien </option>
+                            <option value="Technicien"> Comptable </option>
+                            <option value="Secrétaire"> Secrétaire </option>
+                          </select>
+                        </div>
+
+                        <button class="btn btn-primary" onclick="stepper.next()">Suivant</button>
+                      </div>
+                      <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger">
+                        <div class="form-group">
+                          <label >Nom d'utilisateur (login)</label>
+                          <input
+                          [(ngModel)]="userData.login"
+                          name="login"
+                          type="text"
+                          class="form-control"
+                          required >
+                        </div>
+
+                        <div class="form-group">
+                          <label >Mot de passe</label>
+                          <input
+                          [(ngModel)]="userData.shadow"
+                          name="shadow"
+                          type="password"
+                          class="form-control"
+                          required >
+                        </div>
+
+                        <button class="btn btn-primary" onclick="stepper.previous()">Précédent</button>
+                        <button
+                        (click)="createUser()"
+                        [disabled]="!newUser.form.valid"
+                        style="margin-left: 5px;"
+                        class="btn btn-primary">Valider</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-body -->
+
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+
+      </div>
+
+      <div id="err" style="display: none; margin-top: 5px;" class="alert alert-danger">
+        {{errorMessage}}
+      </div>
+
+    </section>
+
+    <div class="text-center successMessage" *ngIf="userAdded">
+      <h2>L'utilisateur <span class="fullName">'{{userData.fName}} {{userData.lName}}'</span>  a bien été ajouté</h2>
+    </div>
+
+    </div>
+
+  </div>
+
+

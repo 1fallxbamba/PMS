@@ -1,0 +1,109 @@
+<app-navbar></app-navbar>
+
+<!-- SIDEMENU -->
+
+<app-sidemenu></app-sidemenu>
+
+<ngx-spinner  bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="cog"></ngx-spinner>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header" *ngIf="usersFound">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Choississez un utilisateur</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a routerLink="/home">Accueil</a></li>
+              <li class="breadcrumb-item active">Utilisateurs</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content" *ngIf="usersFound">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Liste de tous les utilisateurs créés</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example2" class="table table-bordered table-hover">
+                  <thead>
+                  <tr>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>Profil</th>
+                    <th>Nom d'utilisateur</th>
+                    <th>Email</th>
+                    <th>Téléphone</th>
+                    <th>Actions</th>
+                  </tr>
+                  </thead>
+                  <tbody *ngFor="let u of users">
+                  <tr>
+                    <td> {{u.fName}} </td>
+                    <td> {{u.lName}} </td>
+                    <td>{{u.profile}}</td>
+                    <td style="font-style: italic;"> {{u.login}}</td>
+                    <td> {{u.email}} </td>
+                    <td> {{u.tel}} </td>
+                    <td>
+                      <a (click)='goToEditUser(u)' class="btn btn-primary btn-sm" style="margin-right: 3px;">
+                        <i class="fas fa-pencil-alt">
+                        </i>
+
+                    </a>
+                    <a (click)="deleteUser(u)"  class="btn btn-info btn-sm" style="margin-right: 3px;">
+                        <i class="fa fa-trash">
+
+                        </i>
+
+                    </a>
+                    </td>
+                  </tr>
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>Profil</th>
+                    <th>Nom d'utilisateur</th>
+                    <th>Email</th>
+                    <th>Téléphone</th>
+                    <th>Actions</th>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+
+      <div id="err" style="display: none; margin-top: 5px;" class="alert alert-danger">
+        {{errorMessage}}
+      </div>
+
+    </section>
+
+    <div class="text-center successMessage" *ngIf="!usersFound">
+      <h2>Aucun projet n'a été trouvé</h2>
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->

@@ -1,0 +1,94 @@
+<app-navbar></app-navbar>
+
+<!-- SIDEMENU -->
+
+<app-sidemenu></app-sidemenu>
+
+<ngx-spinner  bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="cog"></ngx-spinner>
+
+ <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Choisir le client à modifier</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a routerLink="/home">Accueil</a></li>
+              <li class="breadcrumb-item active">Modifier client</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Liste de vos clients</h3>
+
+                <div class="card-tools">
+                  <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control float-right" placeholder="Rechercher">
+
+                    <!-- <div class="input-group-append">
+                      <button type="submit" class="btn btn-default">
+                        <i class="fas fa-search"></i>
+                      </button>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
+                  <thead>
+                    <tr>
+                      <th>Nom</th>
+                      <th>Adresse</th>
+                      <th>Numéro de téléphone</th>
+                      <th>Nom du contact</th>
+                      <th>Email du contact</th>
+                      <th>Modifier</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngFor="let c of clients">
+                    <tr>
+                      <td> {{c.name}} </td>
+                      <td> {{c.address}} </td>
+                      <td> {{c.tel}} </td>
+                      <td> {{c.contactName}} </td>
+                      <td *ngIf="c.contactEmail !== ''"> {{c.contactEmail}} </td>
+                      <td style="color: indianred;" *ngIf="c.contactEmail === ''"> Non renseigné </td>
+                      <td>
+                        <a (click)="goToEditClient(c)" class="btn btn-info btn-sm" style="margin-right: 3px;">
+                          <i class="fas fa-pencil-alt">
+                          </i>
+
+                      </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+        <!-- /.row -->
+
+
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->

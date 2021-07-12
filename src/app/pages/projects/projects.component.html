@@ -1,0 +1,149 @@
+<app-navbar></app-navbar>
+
+<!-- SIDEMENU -->
+
+<app-sidemenu></app-sidemenu>
+
+<ngx-spinner  bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="cog"></ngx-spinner>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Vos projets</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a routerLink="/home">Accueil</a></li>
+              <li class="breadcrumb-item active">Projets</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+      <div style="margin-bottom: 5px;" class="input-group input-group-sm">
+        <input
+        #term
+        (keyup)="search(term.value)"
+        style="height: 35px;"
+        class="form-control form-control-navbar"
+        type="search"
+        placeholder="Entrer le nom d'un projet pour rechercher"
+        aria-label="Search">
+      </div>
+
+      <!-- Default box -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Liste de tous vos projets</h3>
+
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Réduire">
+              <i class="fas fa-minus"></i>
+            </button>
+            <!-- <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+              <i class="fas fa-times"></i>
+            </button> -->
+          </div>
+        </div>
+        <div class="card-body p-0">
+          <table class="table table-striped projects">
+              <thead>
+                  <tr>
+                      <!-- <th style="width: 1%">
+                          #
+                      </th> -->
+                      <th style="width: 20%">
+                          Nom
+                      </th>
+                      <th style="width: 10%">
+                          Client
+                      </th>
+                      <th style="width: 9%">
+                          Montant (FCFA)
+                      </th>
+                      <th style="width: 15%" class="text-center">
+                          Chef
+                      </th>
+                      <th style="width: 20%; text-align: center;">
+                        Actions
+                      </th>
+                  </tr>
+              </thead>
+              <tbody *ngFor="let p of projects; let i = index">
+                  <tr>
+                      <!-- <td>
+                          #
+                      </td> -->
+                      <td>
+                          <a style="color: #007bff; font-weight: 600;">
+                              {{p.name}}
+                          </a>
+                          <br/>
+                          <small>
+                              Créé le {{p.starting}} <br>
+                              Fini le {{p.ending}}
+                          </small>
+                      </td>
+                      <td style="font-style: italic;">
+                        {{p.client}}
+                      </td>
+                      <td style="font-size: 20px; color: seagreen;">
+                          <!-- <div class="progress progress-sm">
+                              <div class="progress-bar bg-green" role="progressbar" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100" style="width: 57%">
+                              </div>
+                          </div> -->
+
+                              {{p.amount}}
+
+                      </td>
+                      <td class="project-state">
+                          <div *ngIf="p.manager.name === ''" style="color: red;">Non assigné</div>
+                          <div *ngIf="p.manager.name !== ''"> {{p.manager.name}} </div>
+                      </td>
+                      <td class="project-actions text-right">
+                          <a routerLink="/project/{{p._id.$oid}}" class="btn btn-primary btn-sm" style="margin-right: 3px;">
+                              <i class="fas fa-list">
+                                Détails
+                              </i>
+
+                          </a>
+                          <a (click)='goToEditProject(p)' class="btn btn-info btn-sm" style="margin-right: 3px;">
+                              <i class="fas fa-pencil-alt">
+                                Modifier
+                              </i>
+
+                          </a>
+                          <!-- <a class="btn btn-danger btn-sm" >
+                              <i class="fas fa-trash">
+                              </i>
+
+                          </a> -->
+                      </td>
+                  </tr>
+
+              </tbody>
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+
+      <div id="err" style="display: none; margin-top: 5px;" class="alert alert-danger">
+        {{errorMessage}}
+      </div>
+
+    </section>
+    <!-- /.content -->
+    <div class="text-center successMessage" *ngIf="!projectsFound">
+      <h2>Aucun projet n'a été trouvé</h2>
+    </div>
+  </div>
+  <!-- /.content-wrapper -->

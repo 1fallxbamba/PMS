@@ -1,0 +1,9 @@
+.successMessage {
+  padding-top: 30%;
+}
+
+span {
+  font-style: italic;
+  font-weight: 600;
+  font-size: 40px;
+}

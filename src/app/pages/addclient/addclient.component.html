@@ -1,0 +1,125 @@
+  <!-- NAVBAR -->
+
+  <app-navbar></app-navbar>
+
+  <!-- SIDEMENU -->
+
+  <app-sidemenu></app-sidemenu>
+
+  <ngx-spinner  bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="cog"></ngx-spinner>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header" *ngIf="!clientAdded">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>Nouveau client</h1>
+            </div>
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a routerLink="/home">Accueil</a></li>
+                <li class="breadcrumb-item active">Ajout de client</li>
+              </ol>
+            </div>
+          </div>
+        </div><!-- /.container-fluid -->
+      </section>
+
+      <!-- Main content -->
+      <section class="content" *ngIf="!clientAdded">
+
+        <!-- Default box -->
+        <div class="card">
+          <div class="card-body row">
+            <!-- <div class="col-5 text-center d-flex align-items-center justify-content-center">
+              <div class="">
+                <h2>Admin<strong>LTE</strong></h2>
+                <p class="lead mb-5">123 Testing Ave, Testtown, 9876 NA<br>
+                  Phone: +1 234 56789012
+                </p>
+              </div>
+            </div> -->
+            <div class="col-12">
+              <form #clientForm="ngForm">
+                <div class="form-group">
+                  <label >Nom</label>
+                  <input
+                  [(ngModel)]="clientData.name"
+                  type="text"
+                  name="name"
+                  required
+                  class="form-control" />
+                </div>
+                <div class="form-group">
+                  <label >Adresse</label>
+                  <input
+                  [(ngModel)]="clientData.address"
+                  type="text"
+                  name="addr"
+                  required
+                  class="form-control" />
+                </div>
+                <div class="form-group">
+                  <label>Numéro de téléphone</label>
+                  <input
+                  [(ngModel)]="clientData.tel"
+                  type="number"
+                  name="tel"
+                  pattern="[0-9]{9}"
+                  placeholder="9 chiffres (Ex: 331234567)"
+                  required
+                  class="form-control" />
+                </div>
+                <div class="form-group">
+                  <label >Nom du contact</label>
+                  <input
+                  [(ngModel)]="clientData.contactName"
+                  type="text"
+                  name="contactName"
+                  required
+                  class="form-control" />
+                </div>
+                <div class="form-group">
+                  <label>Email du contact</label>
+                  <input
+                  [(ngModel)]="clientData.contactEmail"
+                  type="email"
+                  name="contactEmail"
+                  class="form-control" />
+                </div>
+                <div class="form-group">
+                  <label>Adresse web</label>
+                  <input
+                  [(ngModel)]="clientData.website"
+                  type="url"
+                  name="website"
+                  class="form-control" />
+                </div>
+                <div class="form-group">
+                  <input
+                  (click)="addNewClient()"
+                  [disabled]="!clientForm.form.valid"
+                  type="submit"
+                  class="btn btn-primary"
+                  value="Ajouter">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <div id="err" style="display: none; margin-top: 5px;" class="alert alert-danger">
+          {{errorMessage}}
+        </div>
+
+      </section>
+      <!-- /.content -->
+
+      <div class="text-center successMessage" *ngIf="clientAdded">
+        <h2>Le client <span>'{{clientData.name}}'</span>  a bien été ajouté</h2>
+      </div>
+
+    </div>
+    <!-- /.content-wrapper -->
